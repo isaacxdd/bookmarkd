@@ -14,10 +14,7 @@ const cors = require("cors")
 const morgan = require("morgan")
 
 const bookmarksRouter = require("./controllers/bookmarks.js")
-
-mongoose.connect(DATABASE_URL)
-
-
+const Bookmark = require("./models/bookmark.js");
 //////////////////////////////
 // Middleware
 //////////////////////////////
@@ -28,11 +25,12 @@ app.use(morgan("dev"))
 // express functionality to recognize incoming request objects as JSON objects
 app.use(express.json())
 // Routes
+app.use("/", bookmarksRouter)
 
-// create a test route
-app.get("/", (req, res) => {
-    res.json({hello: "world"})
-})
+// // create a test route
+// app.get("/", (req, res) => {
+//     res.json({hello: "world"})
+// })
 
 app.get('/', (req, res) => {
     res.redirect('/bookmarks');
